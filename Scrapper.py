@@ -1,18 +1,18 @@
 import requests
 import xlwt
 from bs4 import BeautifulSoup
-from docx import Document
-from docx.shared import Inches
 
-global details
 details = "default"
+downloadLink = "default"
 
+# specify the url here
 url = 'http://binodonmela.net/?product_cat=englishmovie&paged='
 nextUrl = []
 book = xlwt.Workbook(encoding="utf-8")
 sheet1 = book.add_sheet("Sheet 1")
 
-for i in range(1, 51):
+# specify the range or pages
+for i in range(1, 50):
     finalUrl = url + str(i)
     source = requests.get(finalUrl)
     plain_text = source.text
@@ -37,11 +37,7 @@ for l in nextUrl:
     sheet1.write(row, 1, downloadLink)
     sheet1.write(row, 2, details)
     row = row + 1
-
-details = "none"
-# print proPrice.get_text()
-# for code in soup1.find_all('div', class_='productHeadLeft'):
-# print code
+    details = "none"
 
 book.save("movies.xls")
 print('done')
